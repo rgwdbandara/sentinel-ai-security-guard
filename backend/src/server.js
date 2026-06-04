@@ -4,14 +4,20 @@ import dotenv from "dotenv";
 import helmet from "helmet";
 import morgan from "morgan";
 
+import rateLimiter from "./middleware/rateLimiter.js";
+
 dotenv.config();
 
 const app = express();
+app.set("trust proxy", 1);
 
 app.use(cors());
 app.use(helmet());
 app.use(morgan("dev"));
 app.use(express.json());
+
+
+app.use(rateLimiter);
 
 app.get("/", (req, res) => {
   res.json({
