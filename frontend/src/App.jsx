@@ -1,12 +1,38 @@
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import LiveThreatFeed from "./components/LiveThreatFeed";
 import StatsCards from "./components/StatsCards";
 import ThreatChart from "./charts/ThreatChart";
+import API from "./services/api";
+import BlockedIPsTable from "./components/BlockedIPsTable";
 
 function App() {
   const [threats, setThreats] = useState([]);
+
+  useEffect(() => {
+    const fetchAttackHistory = async () => {
+      try {
+        const response = await API.get("/analytics/attacks");
+
+        const historicalThreats = response.data.data.map((log) => ({
+          ip: log.ip,
+          detectedThreats: log.detectedThreats,
+          threatScore: log.threatScore,
+          timestamp: log.createdAt,
+        }));
+
+        setThreats(historicalThreats);
+      } catch (error) {
+        console.log(
+          "Fetch Attack History Error:",
+          error.message
+        );
+      }
+    };
+
+    fetchAttackHistory();
+  }, []);
 
   return (
     <div className="min-h-screen bg-black text-white p-8">
@@ -29,9 +55,12 @@ function App() {
 
           <ThreatChart threats={threats} />
         </div>
+
+        <BlockedIPsTable threats={threats} />
       </div>
     </div>
   );
 }
 
 export default App;
+
