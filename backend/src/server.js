@@ -5,6 +5,7 @@ import helmet from "helmet";
 import morgan from "morgan";
 
 import rateLimiter from "./middleware/rateLimiter.js";
+import threatDetection from "./middleware/threatDetection.js";
 
 dotenv.config();
 
@@ -18,11 +19,13 @@ app.use(express.json());
 
 
 app.use(rateLimiter);
+app.use(threatDetection);
 
 app.get("/", (req, res) => {
   res.json({
     success: true,
     message: "Sentinel AI Security Guard API Running",
+    threatAnalysis: req.threatAnalysis,
   });
 });
 
