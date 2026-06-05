@@ -1,7 +1,13 @@
 
+import { useState } from "react";
+
 import LiveThreatFeed from "./components/LiveThreatFeed";
+import StatsCards from "./components/StatsCards";
+import ThreatChart from "./charts/ThreatChart";
 
 function App() {
+  const [threats, setThreats] = useState([]);
+
   return (
     <div className="min-h-screen bg-black text-white p-8">
       <div className="max-w-7xl mx-auto">
@@ -13,7 +19,16 @@ function App() {
           Real-time API Threat Monitoring System
         </p>
 
-        <LiveThreatFeed />
+        <StatsCards threats={threats} />
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <LiveThreatFeed
+            threats={threats}
+            setThreats={setThreats}
+          />
+
+          <ThreatChart threats={threats} />
+        </div>
       </div>
     </div>
   );

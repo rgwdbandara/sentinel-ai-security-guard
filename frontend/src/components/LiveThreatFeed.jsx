@@ -1,9 +1,8 @@
 
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import socket from "../services/socket";
 
-function LiveThreatFeed() {
-  const [threats, setThreats] = useState([]);
+function LiveThreatFeed({ threats, setThreats }) {
 
   useEffect(() => {
     socket.on("security-threat", (data) => {
@@ -13,6 +12,7 @@ function LiveThreatFeed() {
     return () => {
       socket.off("security-threat");
     };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
