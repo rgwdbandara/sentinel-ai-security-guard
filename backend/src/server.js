@@ -10,6 +10,7 @@ import blockMiddleware from "./middleware/blockMiddleware.js";
 import connectDB from "./config/database.js";
 import http from "http";
 import { initializeSocketServer } from "./sockets/socketServer.js";
+import analyticsRoutes from "./routes/analyticsRoutes.js";
 
 dotenv.config();
 
@@ -28,6 +29,7 @@ app.use(express.json());
 app.use(rateLimiter);
 app.use(blockMiddleware);
 app.use(threatDetection);
+app.use("/api/analytics", analyticsRoutes);
 
 app.get("/", (req, res) => {
   res.json({
