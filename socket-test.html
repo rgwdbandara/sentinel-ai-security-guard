@@ -1,0 +1,37 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Socket Test</title>
+</head>
+<body>
+  <h1>Sentinel AI Socket Test</h1>
+
+  <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
+
+  <script>
+    const socket = io("http://localhost:5000");
+
+    socket.on("connect", () => {
+      console.log("✅ Connected to Socket Server");
+    });
+
+    socket.on("security-threat", (data) => {
+      console.log("🚨 SECURITY ALERT:", data);
+
+      const alertBox = document.createElement("div");
+
+      alertBox.innerHTML = `
+        <h2>🚨 Threat Detected</h2>
+        <p><strong>IP:</strong> ${data.ip}</p>
+        <p><strong>Threats:</strong> ${data.detectedThreats.join(", ")}</p>
+        <p><strong>Threat Score:</strong> ${data.threatScore}</p>
+        <hr />
+      `;
+
+      document.body.prepend(alertBox);
+    });
+  </script>
+</body>
+</html>

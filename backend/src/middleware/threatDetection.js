@@ -2,6 +2,7 @@
 import analyzeThreat from "../services/security/threatAnalyzer.js";
 import { blockIP } from "../services/security/blockService.js";
 import logAttack from "../services/security/attackLogger.js";
+import { getIO } from "../sockets/socketServer.js";
 
 const threatDetection = async (req, res, next) => {
   try {
@@ -19,6 +20,15 @@ const threatDetection = async (req, res, next) => {
     ip,
     threats: analysis.detectedThreats,
     score: analysis.threatScore,
+  });
+
+  const io = getIO();
+
+  io.emit("security-threat", {
+    ip,
+    detectedThreats: analysis.detectedThreats,
+    threatScore: analysis.threatScore,
+    timestamp: new Date(),
   });
 
   await logAttack({

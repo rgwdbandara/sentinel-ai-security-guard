@@ -8,6 +8,8 @@ import rateLimiter from "./middleware/rateLimiter.js";
 import threatDetection from "./middleware/threatDetection.js";
 import blockMiddleware from "./middleware/blockMiddleware.js";
 import connectDB from "./config/database.js";
+import http from "http";
+import { initializeSocketServer } from "./sockets/socketServer.js";
 
 dotenv.config();
 
@@ -37,6 +39,10 @@ app.get("/", (req, res) => {
 
 const PORT = process.env.PORT || 5000;
 
-app.listen(PORT, () => {
+const server = http.createServer(app);
+
+initializeSocketServer(server);
+
+server.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
