@@ -47,6 +47,30 @@ function LiveThreatFeed({ threats, setThreats }) {
               {threat.threatScore}
             </p>
 
+            
+<p>
+  <span className="font-bold text-cyan-400">
+    AI Threat Type:
+  </span>{" "}
+  {threat.aiThreatType || "UNKNOWN"}
+</p>
+
+<p>
+  <span className="font-bold text-cyan-400">
+    AI Confidence:
+  </span>{" "}
+  {threat.aiConfidenceScore
+    ? `${Math.round(
+        threat.aiConfidenceScore * 100
+      )}%`
+    : "N/A"}
+</p>
+
+<p className="text-zinc-400 mt-2 text-sm">
+  {threat.aiExplanation}
+</p>
+
+
             <p>
               <span className="font-bold text-red-400">
                 IP:

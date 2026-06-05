@@ -5,6 +5,9 @@ const WINDOW_SIZE = 60;
 const MAX_REQUESTS = 20;
 
 const rateLimiter = async (req, res, next) => {
+  if (req.path.startsWith("/api/analytics")) {
+  return next();
+}
   try {
     const ip =
       req.headers["x-forwarded-for"] ||

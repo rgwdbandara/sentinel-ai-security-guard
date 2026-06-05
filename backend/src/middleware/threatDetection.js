@@ -6,11 +6,17 @@ import { getIO } from "../sockets/socketServer.js";
 import analyzeWithAI from "../services/security/aiThreatAnalyzer.js";
 
 const threatDetection = async (req, res, next) => {
+
+    if (req.path.startsWith("/api/analytics")) {
+    return next();
+  }
   try {
     const ip =
       req.headers["x-forwarded-for"] ||
       req.socket.remoteAddress ||
       "unknown";
+
+
 
     const analysis = analyzeThreat(req);
 
@@ -37,11 +43,25 @@ const threatDetection = async (req, res, next) => {
       const io = getIO();
 
       io.emit("security-threat", {
-        ip,
-        detectedThreats: analysis.detectedThreats,
-        threatScore: analysis.threatScore,
-        timestamp: new Date(),
-      });
+  ip,
+
+  detectedThreats:
+    analysis.detectedThreats,
+
+  threatScore:
+    analysis.threatScore,
+
+  timestamp: new Date(),
+
+  aiThreatType:
+    aiAnalysis.threatType,
+
+  aiConfidenceScore:
+    aiAnalysis.confidenceScore,
+
+  aiExplanation:
+    aiAnalysis.explanation,
+});
 
       await logAttack({
         ip,
@@ -49,6 +69,9 @@ const threatDetection = async (req, res, next) => {
         threatScore: analysis.threatScore,
         req,
         blocked: analysis.threatScore >= 50,
+        aiAnalysis,
+
+
       });
     }
 

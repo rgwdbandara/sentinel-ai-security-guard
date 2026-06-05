@@ -15,12 +15,29 @@ function App() {
       try {
         const response = await API.get("/analytics/attacks");
 
-        const historicalThreats = response.data.data.map((log) => ({
-          ip: log.ip,
-          detectedThreats: log.detectedThreats,
-          threatScore: log.threatScore,
-          timestamp: log.createdAt,
-        }));
+const historicalThreats = response.data.data.map((log) => ({
+  ip: log.ip || "UNKNOWN",
+
+  detectedThreats:
+    log.detectedThreats || [],
+
+  threatScore:
+    log.threatScore || 0,
+
+  timestamp:
+    log.createdAt || new Date(),
+
+  aiThreatType:
+    log.aiThreatType || "UNKNOWN",
+
+  aiConfidenceScore:
+    log.aiConfidenceScore || 0,
+
+  aiExplanation:
+    log.aiExplanation || "No AI explanation available.",
+}));
+
+
 
         setThreats(historicalThreats);
       } catch (error) {

@@ -2,6 +2,10 @@
 import { isIPBlocked } from "../services/security/blockService.js";
 
 const blockMiddleware = async (req, res, next) => {
+
+    if (req.path.startsWith("/api/analytics")) {
+  return next();
+}
   try {
     const ip =
       req.headers["x-forwarded-for"] ||

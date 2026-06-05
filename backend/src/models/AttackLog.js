@@ -40,6 +40,24 @@ const attackLogSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
+
+    
+aiThreatType: {
+  type: String,
+  default: "NONE",
+},
+
+aiConfidenceScore: {
+  type: Number,
+  default: 0,
+},
+
+aiExplanation: {
+  type: String,
+  default: "",
+},
+
+
   },
   {
     timestamps: true,

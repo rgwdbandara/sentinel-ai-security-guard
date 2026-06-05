@@ -7,6 +7,7 @@ const logAttack = async ({
   threatScore,
   req,
   blocked,
+  aiAnalysis,
 }) => {
   try {
     await AttackLog.create({
@@ -18,6 +19,11 @@ const logAttack = async ({
       payload: req.body,
       headers: req.headers,
       blocked,
+      aiThreatType: aiAnalysis?.threatType,
+      aiConfidenceScore: aiAnalysis?.confidenceScore,
+      aiExplanation: aiAnalysis?.explanation,
+
+
     });
 
     console.log("Attack logged to MongoDB");
