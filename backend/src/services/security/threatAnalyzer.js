@@ -16,7 +16,7 @@ const analyzeThreat = (req) => {
   // SQL Injection Detection
   SQL_INJECTION_PATTERNS.forEach((pattern) => {
     if (pattern.test(payload) || pattern.test(query)) {
-      threatScore += 25;
+      threatScore += 50;
 
       if (!detectedThreats.includes("SQL_INJECTION")) {
         detectedThreats.push("SQL_INJECTION");
@@ -27,7 +27,7 @@ const analyzeThreat = (req) => {
   // XSS Detection
   XSS_PATTERNS.forEach((pattern) => {
     if (pattern.test(payload) || pattern.test(query)) {
-      threatScore += 20;
+      threatScore += 40;
 
       if (!detectedThreats.includes("XSS_ATTACK")) {
         detectedThreats.push("XSS_ATTACK");
