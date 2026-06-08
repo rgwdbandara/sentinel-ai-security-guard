@@ -4,6 +4,7 @@ import { blockIP } from "../services/security/blockService.js";
 import logAttack from "../services/security/attackLogger.js";
 import { getIO } from "../sockets/socketServer.js";
 import analyzeWithAI from "../services/security/aiThreatAnalyzer.js";
+import detectBruteForce from "../services/security/bruteForceDetector.js";
 
 const threatDetection = async (req, res, next) => {
   try {
@@ -13,6 +14,21 @@ const threatDetection = async (req, res, next) => {
       "unknown";
 
     const analysis = analyzeThreat(req);
+
+  
+const bruteForceDetected =
+  detectBruteForce(ip);
+
+if (bruteForceDetected) {
+  analysis.detectedThreats.push(
+    "BRUTE_FORCE_ATTACK"
+  );
+
+  analysis.threatScore += 100;
+
+  analysis.isThreat = true;
+}
+
 
     const aiAnalysis = await analyzeWithAI({
       body: req.body,
