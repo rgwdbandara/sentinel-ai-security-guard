@@ -30,13 +30,17 @@ const analyzeWithAI = async (requestData) => {
 
             threatType: {
               type: Type.STRING,
-              enum: [
-                "NONE",
-                "SQL_INJECTION",
-                "XSS_ATTACK",
-                "BOT_ACTIVITY",
-                "SUSPICIOUS_REQUEST",
-              ],
+enum: [
+  "NONE",
+  "SQL_INJECTION",
+  "XSS_ATTACK",
+  "BOT_ACTIVITY",
+  "BRUTE_FORCE_ATTACK",
+  "PATH_TRAVERSAL",
+  "COMMAND_INJECTION",
+  "SUSPICIOUS_REQUEST",
+],
+
             },
 
             confidenceScore: {
