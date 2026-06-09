@@ -5,6 +5,7 @@ import logAttack from "../services/security/attackLogger.js";
 import { getIO } from "../sockets/socketServer.js";
 import analyzeWithAI from "../services/security/aiThreatAnalyzer.js";
 import detectBruteForce from "../services/security/bruteForceDetector.js";
+import getSeverityLevel from"../services/security/severityEngine.js";
 
 const threatDetection = async (req, res, next) => {
   try {
@@ -14,6 +15,7 @@ const threatDetection = async (req, res, next) => {
       "unknown";
 
     const analysis = analyzeThreat(req);
+    const severity = getSeverityLevel(analysis.threatScore);
 
   
 const bruteForceDetected =
@@ -65,6 +67,7 @@ if (bruteForceDetected) {
         threatScore: analysis.threatScore,
         req,
         blocked: analysis.threatScore >= 50,
+        severity,
       });
     }
 

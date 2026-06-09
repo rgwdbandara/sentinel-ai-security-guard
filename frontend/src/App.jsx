@@ -37,6 +37,9 @@ function App() {
             aiExplanation:
               log.aiExplanation ||
               "No AI explanation available.",
+
+              severity:
+              log.severity || "LOW",
           }));
 
         setThreats(historicalThreats);
@@ -68,8 +71,8 @@ function App() {
             </p>
           </div>
 
-          <div className="flex items-center gap-3 px-5 py-3 border  bg-zinc-900/70 border-zinc-800 rounded-2xl backdrop-blur-xl">
-            <div className="w-3 h-3 bg-green-500 rounded-full  animate-pulse" />
+          <div className="flex items-center gap-3 px-5 py-3 border bg-zinc-900/70 border-zinc-800 rounded-2xl backdrop-blur-xl">
+            <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse" />
 
             <span className="font-semibold text-green-400">
               LIVE MONITORING

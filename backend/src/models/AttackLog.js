@@ -40,6 +40,11 @@ const attackLogSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
+
+    severity: {
+  type: String,
+  default: "LOW",
+},
   },
   {
     timestamps: true,
