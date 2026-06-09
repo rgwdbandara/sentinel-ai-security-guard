@@ -3,3 +3,33 @@
 @tailwind components;
 @tailwind utilities;
 
+body {
+  background: radial-gradient(
+      circle at top left,
+      rgba(255, 0, 80, 0.12),
+      transparent 30%
+    ),
+    radial-gradient(
+      circle at bottom right,
+      rgba(0, 255, 255, 0.1),
+      transparent 30%
+    ),
+    #050816;
+
+  background-attachment: fixed;
+}
+
+.cyber-grid {
+  background-image:
+    linear-gradient(
+      rgba(255,255,255,0.03) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      rgba(255,255,255,0.03) 1px,
+      transparent 1px
+    );
+
+  background-size: 40px 40px;
+}
